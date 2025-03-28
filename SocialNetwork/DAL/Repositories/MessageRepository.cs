@@ -11,23 +11,23 @@ namespace SocialNetwork.DAL.Repositories
     {
         public int Create(MessageEntity messageEntity)
         {
-            return Execute(@"insert into messages(content, sender_id, recipient_id) 
-                             values(:content,:sender_id,:recipient_id)", messageEntity);
+            return Execute(@"insert into Messages(Content, SenderId, RecipientId) 
+                             values(:Content,:SenderId,:RecipientId)", messageEntity);
         }
 
         public IEnumerable<MessageEntity> FindBySenderId(int senderId)
         {
-            return Query<MessageEntity>("select * from messages where sender_id = :sender_id", new { sender_id = senderId });
+            return Query<MessageEntity>("select * from Messages where SenderId = :SenderId", new { sender_id = senderId });
         }
 
         public IEnumerable<MessageEntity> FindByRecipientId(int recipientId)
         {
-            return Query<MessageEntity>("select * from messages where recipient_id = :recipient_id", new { recipient_id = recipientId });
+            return Query<MessageEntity>("select * from Messages where RecipientId = :RecipientId", new { recipient_id = recipientId });
         }
 
         public int DeleteById(int messageId)
         {
-            return Execute("delete from messages where id = :id", new { id = messageId });
+            return Execute("delete from Messages where Id = :Id", new { id = messageId });
         }
 
     }

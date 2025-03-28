@@ -7,7 +7,7 @@ namespace SocialNetwork.DAL.Repositories
     {
         public int Create(UserEntity userEntity)
         {
-            return Execute(@"insert into users (FirstName,LastName,Password,Email) 
+            return Execute(@"insert into Users (FirstName,LastName,Password,Email) 
                              values (:FirstName,:LastName,:Password,:Email)", userEntity);
         }
 

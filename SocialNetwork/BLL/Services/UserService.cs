@@ -9,10 +9,12 @@ namespace SocialNetwork.BLL.Services
 {
     public class UserService
     {
+        MessageService messageService;
         IUserRepository userRepository;
         public UserService()
         {
             userRepository = new UserRepository();
+            messageService = new MessageService();
         }
 
         public void Register(UserRegistrationData userRegistrationData)
@@ -48,6 +50,7 @@ namespace SocialNetwork.BLL.Services
 
             if (this.userRepository.Create(userEntity) == 0)
                 throw new Exception();
+
         }
 
         public User Authenticate(UserAuthenticationData userAuthenticationData)
@@ -64,6 +67,14 @@ namespace SocialNetwork.BLL.Services
         public User FindByEmail(string email)
         {
             var findUserEntity = userRepository.FindByEmail(email);
+            if (findUserEntity is null) throw new UserNotFoundException();
+
+            return ConstructUserModel(findUserEntity);
+        }
+
+        public User FindById(int id)
+        {
+            var findUserEntity = userRepository.FindById(id);
             if (findUserEntity is null) throw new UserNotFoundException();
 
             return ConstructUserModel(findUserEntity);
@@ -89,15 +100,21 @@ namespace SocialNetwork.BLL.Services
 
         private User ConstructUserModel(UserEntity userEntity)
         {
+            var incomingMessages = messageService.GetIncomingMessagesByUserId(userEntity.Id);
+
+            var outgoingMessages = messageService.GetOutcomingMessagesByUserId(userEntity.Id);
+
             return new User(userEntity.Id,
                           userEntity.FirstName,
                           userEntity.LastName,
                           userEntity.Password,
                           userEntity.Email,
                           userEntity.Photo,
-                          userEntity.FavoriteMovie,
-                          userEntity.FavoriteBook);
+                          userEntity.Password,
+                          userEntity.Password,
+                          incomingMessages,
+                          outgoingMessages
+                          );
         }
     }
-
 }

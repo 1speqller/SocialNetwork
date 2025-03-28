@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
+﻿using System.Data.SQLite;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Dapper;
 
 namespace SocialNetwork.DAL.Repositories
@@ -45,4 +40,3 @@ namespace SocialNetwork.DAL.Repositories
 
     }
 }
-

@@ -11,17 +11,17 @@ namespace SocialNetwork.DAL.Repositories
     {
         public IEnumerable<FriendEntity> FindAllByUserId(int userId)
         {
-            return Query<FriendEntity>(@"select * from friends where user_id = :user_id", new { user_id = userId });
+            return Query<FriendEntity>(@"select * from Friends where UserId = :UserId", new { user_id = userId });
         }
 
         public int Create(FriendEntity friendEntity)
         {
-            return Execute(@"insert into friends (user_id,friend_id) values (:user_id,:friend_id)", friendEntity);
+            return Execute(@"insert into Friends (UserId,FriendId) values (:UserId,:FriendId)", friendEntity);
         }
 
         public int Delete(int id)
         {
-            return Execute(@"delete from friends where id = :id_p", new { id_p = id });
+            return Execute(@"delete from Friends where Id = :Id_p", new { id_p = id });
         }
 
     }
