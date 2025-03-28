@@ -19,6 +19,7 @@ class Program
         {
             Console.WriteLine("Войти в профиль (нажмите 1)");
             Console.WriteLine("Зарегистрироваться (нажмите 2)");
+            Console.WriteLine();
 
             switch (Console.ReadLine())
             {
