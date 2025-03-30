@@ -11,6 +11,9 @@ using static SocialNetwork.BLL.Models.MessagesSendingData;
 
 namespace SocialNetwork.BLL.Services
 {
+    /// <TODO>
+    /// IEnumerable m.
+    /// </TODO>
     public class MessageService
     {
         IMessageRepository messageRepository;
@@ -27,10 +30,10 @@ namespace SocialNetwork.BLL.Services
 
             messageRepository.FindByRecipientId(recipientId).ToList().ForEach(m =>
             {
-                var senderUserEntity = userRepository.FindById(m.SenderId);
-                var recipientUserEntity = userRepository.FindById(m.RecipientId);
+                var senderUserEntity = userRepository.FindById(m.sender_id);
+                var recipientUserEntity = userRepository.FindById(m.recipient_id);
 
-                messages.Add(new Message(m.Id, m.Content, senderUserEntity.Email, recipientUserEntity.Email));
+                messages.Add(new Message(m.id, m.content, senderUserEntity.email, recipientUserEntity.email));
             });
 
             return messages;
@@ -42,10 +45,10 @@ namespace SocialNetwork.BLL.Services
 
             messageRepository.FindBySenderId(senderId).ToList().ForEach(m =>
             {
-                var senderUserEntity = userRepository.FindById(m.SenderId);
-                var recipientUserEntity = userRepository.FindById(m.RecipientId);
+                var senderUserEntity = userRepository.FindById(m.sender_id);
+                var recipientUserEntity = userRepository.FindById(m.recipient_id);
 
-                messages.Add(new Message(m.Id, m.Content, senderUserEntity.Email, recipientUserEntity.Email));
+                messages.Add(new Message(m.id, m.content, senderUserEntity.email, recipientUserEntity.email));
             });
 
             return messages;
@@ -64,9 +67,9 @@ namespace SocialNetwork.BLL.Services
 
             var messageEntity = new MessageEntity()
             {
-                Content = messageSendingData.Content,
-                SenderId = messageSendingData.SenderId,
-                RecipientId = findUserEntity.Id
+                content = messageSendingData.Content,
+                sender_id = messageSendingData.SenderId,
+                recipient_id = findUserEntity.id
             };
 
             if (this.messageRepository.Create(messageEntity) == 0)

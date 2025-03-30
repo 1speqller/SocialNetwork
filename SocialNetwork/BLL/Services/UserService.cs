@@ -42,10 +42,10 @@ namespace SocialNetwork.BLL.Services
 
             var userEntity = new UserEntity()
             {
-                FirstName = userRegistrationData.FirstName,
-                LastName = userRegistrationData.LastName,
-                Password = userRegistrationData.Password,
-                Email = userRegistrationData.Email
+                firstname = userRegistrationData.FirstName,
+                lastname = userRegistrationData.LastName,
+                password = userRegistrationData.Password,
+                email = userRegistrationData.Email
             };
 
             if (this.userRepository.Create(userEntity) == 0)
@@ -58,7 +58,7 @@ namespace SocialNetwork.BLL.Services
             var findUserEntity = userRepository.FindByEmail(userAuthenticationData.Email);
             if (findUserEntity is null) throw new UserNotFoundException();
 
-            if (findUserEntity.Password != userAuthenticationData.Password)
+            if (findUserEntity.password != userAuthenticationData.Password)
                 throw new WrongPasswordException();
 
             return ConstructUserModel(findUserEntity);
@@ -84,14 +84,14 @@ namespace SocialNetwork.BLL.Services
         {
             var updatableUserEntity = new UserEntity()
             {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Password = user.Password,
-                Email = user.Email,
-                Photo = user.Photo,
-                FavoriteMovie = user.FavoriteMovie,
-                FavoriteBook = user.FavoriteBook
+                id = user.Id,
+                firstname = user.FirstName,
+                lastname = user.LastName,
+                password = user.Password,
+                email = user.Email,
+                photo = user.Photo,
+                favorite_movie = user.FavoriteMovie,
+                favorite_book = user.FavoriteBook
             };
 
             if (this.userRepository.Update(updatableUserEntity) == 0)
@@ -100,18 +100,18 @@ namespace SocialNetwork.BLL.Services
 
         private User ConstructUserModel(UserEntity userEntity)
         {
-            var incomingMessages = messageService.GetIncomingMessagesByUserId(userEntity.Id);
+            var incomingMessages = messageService.GetIncomingMessagesByUserId(userEntity.id);
 
-            var outgoingMessages = messageService.GetOutcomingMessagesByUserId(userEntity.Id);
+            var outgoingMessages = messageService.GetOutcomingMessagesByUserId(userEntity.id);
 
-            return new User(userEntity.Id,
-                          userEntity.FirstName,
-                          userEntity.LastName,
-                          userEntity.Password,
-                          userEntity.Email,
-                          userEntity.Photo,
-                          userEntity.Password,
-                          userEntity.Password,
+            return new User(userEntity.id,
+                          userEntity.firstname,
+                          userEntity.lastname,
+                          userEntity.password,
+                          userEntity.email,
+                          userEntity.photo,
+                          userEntity.favorite_movie,
+                          userEntity.favorite_book,
                           incomingMessages,
                           outgoingMessages
                           );

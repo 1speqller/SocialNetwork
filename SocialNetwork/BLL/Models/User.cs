@@ -30,7 +30,8 @@ namespace SocialNetwork.BLL.Models
             string favoriteMovie,
             string favoriteBook,
             IEnumerable<Message> incomingMessages,
-            IEnumerable<Message> outgoingMessages)
+            IEnumerable<Message> outgoingMessages
+            )
         {
             this.Id = id;
             this.FirstName = firstName;
