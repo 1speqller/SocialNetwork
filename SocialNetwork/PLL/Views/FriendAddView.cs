@@ -7,7 +7,7 @@ namespace SocialNetwork.PLL.Views
     public class FriendAddView
     {
         FriendService friendService;
-        FriendData friendData;
+        FriendData friendData = new FriendData();
         public FriendAddView(FriendService friendService)
         {
             this.friendService = friendService;
@@ -18,7 +18,7 @@ namespace SocialNetwork.PLL.Views
             Console.Write("Введите email друга: ");
             friendData.FriendEmail = Console.ReadLine();
             friendData.UserEmail = user.Email;
-
+            
             this.friendService.AddFriend(friendData);
 
             SuccessMessage.Show("Вы успешно добавили пользователя в друзья!!");
