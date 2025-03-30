@@ -11,7 +11,7 @@ namespace SocialNetwork.DAL.Repositories
     {
         public int Create(MessageEntity messageEntity)
         {
-            return Execute(@"insert into messages(content, sender_id, recipient_id) 
+            return Execute(@"insert into messages (content, sender_id, recipient_id) 
                              values(:content,:sender_id,:recipient_id)", messageEntity);
         }
 
