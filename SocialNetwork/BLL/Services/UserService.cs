@@ -4,6 +4,7 @@ using SocialNetwork.DAL.Entities;
 using SocialNetwork.DAL.Repositories;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace SocialNetwork.BLL.Services
 {
@@ -17,8 +18,12 @@ namespace SocialNetwork.BLL.Services
             messageService = new MessageService();
         }
 
+
+
         public void Register(UserRegistrationData userRegistrationData)
         {
+            Debugger.Break();
+
             if (String.IsNullOrEmpty(userRegistrationData.FirstName))
                 throw new ArgumentNullException();
 
