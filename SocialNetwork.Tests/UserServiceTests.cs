@@ -20,6 +20,7 @@ namespace SocialNetwork.Tests
         [Test]
         public void FindByEmail_UserExists_ReturnsUser()
         {
+            // Arrange
             UserService userService = new UserService();
             UserRegistrationData registrationData = new UserRegistrationData()
             {
@@ -29,6 +30,7 @@ namespace SocialNetwork.Tests
                 Password = "TestPwd000",
             };
 
+            // Act
             userService.Register(registrationData);
             User user = userService.FindByEmail("test@gmail.com");
 
@@ -45,17 +47,20 @@ namespace SocialNetwork.Tests
         public void FindByEmail_UserDoesNotExist_ThrowsUserNotFoundException()
         {
             // Arrange 
-            var mockUserRepository = new Mock<IUserRepository>();
-            var mockMessageService = new Mock<MessageService>();
+            UserService userService = new UserService();
+            UserRegistrationData registrationData = new UserRegistrationData()
+            {
+                Email = "test@gmail.com",
+                FirstName = "TestFName1",
+                LastName = "TestLName1",
+                Password = "TestPwd000",
+            };
 
-            // Настраиваем мок UserRepository так, чтобы он возвращал null, когда вызывается FindByEmail с email "nonexistent@example.com"
-            mockUserRepository.Setup(repo => repo.FindByEmail("nonexistent@example.com"))
-                .Returns((UserEntity)null); 
+            // Act
+            userService.Register(registrationData);
 
-            var userService = new UserService();
-
-            // Act & Assert 
-            Assert.Throws<UserNotFoundException>(() => userService.FindByEmail("nonexistent@example.com"));
+            // Assert 
+            Assert.Throws<UserNotFoundException>(() => userService.FindByEmail("nonexistent@gmail.com"));
         }
     }
 }

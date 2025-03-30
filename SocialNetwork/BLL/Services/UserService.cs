@@ -22,8 +22,6 @@ namespace SocialNetwork.BLL.Services
 
         public void Register(UserRegistrationData userRegistrationData)
         {
-            Debugger.Break();
-
             if (String.IsNullOrEmpty(userRegistrationData.FirstName))
                 throw new ArgumentNullException();
 
