@@ -41,5 +41,10 @@ namespace SocialNetwork.BLL.Services
             if (this.friendRepository.Create(friendEntity) == 0)
                 throw new Exception();
         }
+
+        //public List<FriendData> GetFriends(User user)
+        //{
+        //    return friendRepository.FindAllByUserId(user.Id).ToList();
+        //}
     }
 }
