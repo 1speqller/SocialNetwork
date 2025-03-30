@@ -2,18 +2,10 @@
 using SocialNetwork.BLL.Models;
 using SocialNetwork.DAL.Entities;
 using SocialNetwork.DAL.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static SocialNetwork.BLL.Models.MessagesSendingData;
 
 namespace SocialNetwork.BLL.Services
 {
-    /// <TODO>
-    /// IEnumerable m.
-    /// </TODO>
     public class MessageService
     {
         IMessageRepository messageRepository;
