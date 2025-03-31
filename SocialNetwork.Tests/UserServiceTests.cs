@@ -17,11 +17,17 @@ namespace SocialNetwork.Tests
     [TestFixture]
     public class UserServiceTests
     {
+        private UserService _userService;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _userService = new UserService();
+        }
+
         [Test]
         public void FindByEmail_UserExists_ReturnsUser()
         {
-            // Arrange
-            UserService userService = new UserService();
             UserRegistrationData registrationData = new UserRegistrationData()
             {
                 Email = "test@gmail.com",
@@ -30,37 +36,19 @@ namespace SocialNetwork.Tests
                 Password = "TestPwd000",
             };
 
-            // Act
-            userService.Register(registrationData);
-            User user = userService.FindByEmail("test@gmail.com");
+            _userService.Register(registrationData);
+            User user = _userService.FindByEmail("test@gmail.com");
 
-            // Assert (Проверка)
-            Assert.NotNull(user); // Проверяем, что пользователь не null
-            Assert.That(user.FirstName, Is.EqualTo("TestFName")); // Проверяем имя пользователя
-            Assert.That(user.LastName, Is.EqualTo("TestLName")); // Проверяем фамилию пользователя
-            Assert.That(user.Email, Is.EqualTo("test@gmail.com")); // Проверяем email
-
+            Assert.NotNull(user);
+            Assert.That(user.FirstName, Is.EqualTo("TestFName"));
+            Assert.That(user.LastName, Is.EqualTo("TestLName"));
+            Assert.That(user.Email, Is.EqualTo("test@gmail.com"));
         }
-
 
         [Test]
         public void FindByEmail_UserDoesNotExist_ThrowsUserNotFoundException()
         {
-            // Arrange 
-            UserService userService = new UserService();
-            UserRegistrationData registrationData = new UserRegistrationData()
-            {
-                Email = "test@gmail.com",
-                FirstName = "TestFName1",
-                LastName = "TestLName1",
-                Password = "TestPwd000",
-            };
-
-            // Act
-            userService.Register(registrationData);
-
-            // Assert 
-            Assert.Throws<UserNotFoundException>(() => userService.FindByEmail("nonexistent@gmail.com"));
+            Assert.Throws<UserNotFoundException>(() => _userService.FindByEmail("nonexistent@gmail.com"));
         }
     }
 }
